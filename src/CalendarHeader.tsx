@@ -44,23 +44,25 @@ export function _CalendarHeader({
             disabled={onPressDateHeader === undefined}
             key={date.toString()}
           >
-            <View style={{ height: cellHeight, justifyContent: 'space-between' }}>
-              <Text style={[commonStyles.guideText, _isToday && { color: Color.primary }]}>
+            <View style={{ minHeight: cellHeight, justifyContent: 'space-between' }}>
+              <Text style={[commonStyles.guideText, _isToday && { color: '#004A58' }]}>
                 {date.format('ddd')}
               </Text>
-              <View style={_isToday && styles.todayWrap}>
+              <View
+                style={[_isToday && styles.todayWrap, _isToday && { backgroundColor: '#004A58' }]}
+              >
                 <Text style={[styles.dateText, _isToday && { color: '#fff' }]}>
                   {date.format('D')}
                 </Text>
               </View>
             </View>
-            <View style={[commonStyles.dateCell, { height: cellHeight }]}>
+            <View style={[commonStyles.dateCell, { minHeight: 25 }]}>
               {allDayEvents.map((event) => {
                 if (!event.start.isSame(date, 'day')) {
                   return null
                 }
                 return (
-                  <View style={commonStyles.eventCell}>
+                  <View style={[commonStyles.eventCell, { height: 20 }]}>
                     <Text style={commonStyles.eventTitle}>{event.title}</Text>
                   </View>
                 )

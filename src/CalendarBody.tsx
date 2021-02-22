@@ -120,7 +120,7 @@ export function _CalendarBody({
       PanResponder.create({
         // see https://stackoverflow.com/questions/47568850/touchableopacity-with-parent-panresponder
         onMoveShouldSetPanResponder: (_, { dx, dy }) => {
-          return dx > 2 || dx < -2 || dy > 2 || dy < -2
+          return dx > 50 || dx < -50 || dy > 2 || dy < -2
         },
         onPanResponderMove: (_, { dy, dx }) => {
           if (dy < -1 * SWIPE_THRESHOLD || SWIPE_THRESHOLD < dy || panHandled) {
@@ -161,6 +161,7 @@ export function _CalendarBody({
       ]}
       ref={scrollView}
       scrollEventThrottle={32}
+      scrollEnabled={!panHandled}
       {...(Platform.OS !== 'web' ? panResponder.panHandlers : {})}
       showsVerticalScrollIndicator={false}
       nestedScrollEnabled
