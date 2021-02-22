@@ -9,6 +9,7 @@ export interface BaseEvent {
 }
 
 export interface DayJSConvertedEvent {
+  id?: number
   start: dayjs.Dayjs
   end: dayjs.Dayjs
   title: string

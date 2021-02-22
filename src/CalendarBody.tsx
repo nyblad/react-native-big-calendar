@@ -190,9 +190,9 @@ export function _CalendarBody({
               .filter(({ start }) =>
                 start.isBetween(date.startOf('day'), date.endOf('day'), null, '[)'),
               )
-              .map((event) => (
+              .map((event, index) => (
                 <CalendarEvent
-                  key={`${event.start}${event.title}`}
+                  key={event.id ? event.id : index}
                   event={event}
                   onPressEvent={onPressEvent}
                   eventCellStyle={eventCellStyle}

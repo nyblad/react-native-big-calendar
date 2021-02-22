@@ -13,6 +13,7 @@ interface CalendarHeaderProps<T> {
   allDayEvents: Event<T>[]
   isRTL: boolean
   onPressDateHeader?: (date: Date) => void
+  onPressEvent?: (event: Event<T>) => void
 }
 
 export const CalendarHeader = React.memo(_CalendarHeader)
@@ -24,6 +25,7 @@ export function _CalendarHeader({
   allDayEvents,
   isRTL,
   onPressDateHeader,
+  onPressEvent,
 }: CalendarHeaderProps<any>) {
   const _onPress = React.useCallback(
     (date: Date) => {
@@ -56,15 +58,27 @@ export function _CalendarHeader({
                 </Text>
               </View>
             </View>
-            <View style={[commonStyles.dateCell, { minHeight: 25 }]}>
-              {allDayEvents.map((event) => {
+            <View style={[commonStyles.dateCell, { minHeight: 25, borderWidth: 0 }]}>
+              {allDayEvents.map((event, index) => {
                 if (!event.start.isSame(date, 'day')) {
                   return null
                 }
                 return (
-                  <View style={[commonStyles.eventCell, { height: 20 }]}>
-                    <Text style={commonStyles.eventTitle}>{event.title}</Text>
-                  </View>
+                  <TouchableOpacity onPress={onPressEvent} key={index}>
+                    <View
+                      style={[
+                        commonStyles.eventCell,
+                        {
+                          position: 'relative',
+                          height: 20,
+                          marginTop: 3,
+                          backgroundColor: event.color ? event.color : '#ccc',
+                        },
+                      ]}
+                    >
+                      <Text style={commonStyles.eventTitle}>{event.title}</Text>
+                    </View>
+                  </TouchableOpacity>
                 )
               })}
             </View>
