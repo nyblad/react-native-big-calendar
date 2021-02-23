@@ -308,7 +308,7 @@ function _CalendarEvent(_a) {
     reactNative.TouchableOpacity,
     {
       delayPressIn: 20,
-      key: event.start.toString(),
+      key: event.id,
       style: [
         commonStyles.eventCell,
         getEventCellPositionStyle(event),
@@ -529,9 +529,9 @@ function _CalendarBody(_a) {
               var start = _a.start
               return start.isBetween(date.startOf('day'), date.endOf('day'), null, '[)')
             })
-            .map(function (event) {
+            .map(function (event, index) {
               return React.createElement(CalendarEvent, {
-                key: '' + event.start + event.title,
+                key: event.id ? event.id : index,
                 event: event,
                 onPressEvent: onPressEvent,
                 eventCellStyle: eventCellStyle,
@@ -581,7 +581,9 @@ function _CalendarHeader(_a) {
     style = _b === void 0 ? {} : _b,
     allDayEvents = _a.allDayEvents,
     isRTL = _a.isRTL,
-    onPressDateHeader = _a.onPressDateHeader
+    onPressDateHeader = _a.onPressDateHeader,
+    onPressEvent = _a.onPressEvent,
+    showTime = _a.showTime
   var _onPress = React.useCallback(
     function (date) {
       onPressDateHeader && onPressDateHeader(date)
@@ -626,20 +628,26 @@ function _CalendarHeader(_a) {
         ),
         React.createElement(
           reactNative.View,
-          { style: [commonStyles.dateCell, { minHeight: cellHeight }] },
-          allDayEvents.map(function (event) {
+          { style: [commonStyles.dateCell, { minHeight: 25, borderWidth: 0 }] },
+          allDayEvents.map(function (event, index) {
             if (!event.start.isSame(date, 'day')) {
               return null
             }
-            return React.createElement(
-              reactNative.View,
-              { style: [commonStyles.eventCell, { height: 20 }] },
-              React.createElement(
-                reactNative.Text,
-                { style: commonStyles.eventTitle },
-                event.title,
-              ),
-            )
+            return React.createElement(CalendarEvent, {
+              key: event.id ? event.id : index,
+              event: event,
+              onPressEvent: onPressEvent,
+              eventCellStyle: function (event) {
+                return {
+                  position: 'relative',
+                  height: 20,
+                  marginTop: 2,
+                  marginBottom: 1,
+                  backgroundColor: event.color ? event.color : '#ccc',
+                }
+              },
+              showTime: showTime,
+            })
           }),
         ),
       )
@@ -802,6 +810,8 @@ function _Calendar(_a) {
       __assign({}, commonProps, {
         allDayEvents: allDayEvents,
         onPressDateHeader: onPressDateHeader,
+        onPressEvent: onPressEvent,
+        showTime: false,
       }),
     ),
     React.createElement(

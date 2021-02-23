@@ -2,11 +2,14 @@ import dayjs from 'dayjs'
 import React from 'react'
 import { ViewStyle } from 'react-native'
 export interface BaseEvent {
+  id: number
   start: Date
   end: Date
   title: string
+  color?: string
 }
 export interface DayJSConvertedEvent {
+  id: number
   start: dayjs.Dayjs
   end: dayjs.Dayjs
   title: string
