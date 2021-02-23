@@ -7,6 +7,7 @@ export interface BaseEvent {
   start: Date
   end: Date
   title: string
+  color?: string
 }
 
 export interface DayJSConvertedEvent {
@@ -29,4 +30,4 @@ export type HasDateRange = [Date, Date]
 
 export type DateRangeHandler = ([start, end]: HasDateRange) => void
 
-export type HorizontalDirection = 'RIGHT' | 'LEFT' | 'NEUTRAL'
+export type HorizontalDirection = 'RIGHT' | 'LEFT'

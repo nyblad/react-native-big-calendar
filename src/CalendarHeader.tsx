@@ -1,8 +1,9 @@
 import dayjs from 'dayjs'
 import * as React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { CalendarEvent } from './CalendarEvent'
 import { commonStyles } from './commonStyles'
-import { Event } from './interfaces'
+import { DayJSConvertedEvent, Event } from './interfaces'
 import { Color } from './theme'
 import { isToday } from './utils'
 
@@ -10,8 +11,9 @@ interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[]
   cellHeight: number
   style: ViewStyle
-  allDayEvents: Event<T>[]
+  allDayEvents: DayJSConvertedEvent[]
   isRTL: boolean
+  showTime: boolean
   onPressDateHeader?: (date: Date) => void
   onPressEvent?: (event: Event<T>) => void
 }
@@ -26,6 +28,7 @@ export function _CalendarHeader({
   isRTL,
   onPressDateHeader,
   onPressEvent,
+  showTime,
 }: CalendarHeaderProps<any>) {
   const _onPress = React.useCallback(
     (date: Date) => {
@@ -64,21 +67,19 @@ export function _CalendarHeader({
                   return null
                 }
                 return (
-                  <TouchableOpacity onPress={onPressEvent} key={index}>
-                    <View
-                      style={[
-                        commonStyles.eventCell,
-                        {
-                          position: 'relative',
-                          height: 20,
-                          marginTop: 3,
-                          backgroundColor: event.color ? event.color : '#ccc',
-                        },
-                      ]}
-                    >
-                      <Text style={commonStyles.eventTitle}>{event.title}</Text>
-                    </View>
-                  </TouchableOpacity>
+                  <CalendarEvent
+                    key={event.id ? event.id : index}
+                    event={event}
+                    onPressEvent={onPressEvent}
+                    eventCellStyle={(event) => ({
+                      position: 'relative',
+                      height: 20,
+                      marginTop: 2,
+                      marginBottom: 1,
+                      backgroundColor: event.color ? event.color : '#ccc',
+                    })}
+                    showTime={showTime}
+                  />
                 )
               })}
             </View>

@@ -133,6 +133,7 @@ export function _Calendar<T>({
         allDayEvents={allDayEvents}
         onPressDateHeader={onPressDateHeader}
         onPressEvent={onPressEvent}
+        showTime={false}
       />
       <CalendarBody
         {...commonProps}
