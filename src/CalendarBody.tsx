@@ -138,6 +138,7 @@ export function _CalendarBody({
           }
         },
         onPanResponderEnd: () => {
+          onSwipeHorizontal && onSwipeHorizontal('NEUTRAL')
           setPanHandled(false)
         },
       }),

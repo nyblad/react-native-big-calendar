@@ -3,13 +3,14 @@ import React from 'react'
 import { ViewStyle } from 'react-native'
 
 export interface BaseEvent {
+  id: number
   start: Date
   end: Date
   title: string
 }
 
 export interface DayJSConvertedEvent {
-  id?: number
+  id: number
   start: dayjs.Dayjs
   end: dayjs.Dayjs
   title: string
@@ -28,4 +29,4 @@ export type HasDateRange = [Date, Date]
 
 export type DateRangeHandler = ([start, end]: HasDateRange) => void
 
-export type HorizontalDirection = 'RIGHT' | 'LEFT'
+export type HorizontalDirection = 'RIGHT' | 'LEFT' | 'NEUTRAL'
