@@ -12,28 +12,35 @@ import dayjs from 'dayjs';
 const events = [
   {
     id: 1,
-    title: 'Meeting',
+    title: 'Order #1',
     color: 'red',
     start: dayjs().set('hour', 10).set('minute', 0).toDate(),
     end: dayjs().set('hour', 10).set('minute', 30).toDate(),
   },
   {
     id: 2,
-    title: 'Coffee break',
+    title: 'Order #2',
     color: 'green',
     start: dayjs().set('hour', 0).set('minute', 0).toDate(),
     end: dayjs().add(1, 'day').set('hour', 0).set('minute', 0).toDate(),
   },
   {
     id: 4,
-    title: 'Order #3',
+    title: 'Order #4',
     color: 'orange',
     start: dayjs().set('hour', 0).set('minute', 0).toDate(),
     end: dayjs().add(1, 'day').set('hour', 0).set('minute', 0).toDate(),
   },
   {
+    id: 5,
+    title: 'Order #5',
+    color: 'blue',
+    start: dayjs().set('hour', 0).set('minute', 0).toDate(),
+    end: dayjs().add(1, 'day').set('hour', 0).set('minute', 0).toDate(),
+  },
+  {
     id: 3,
-    title: 'Repair my car',
+    title: 'Order #3',
     color: 'purple',
     start: dayjs().add(1, 'day').set('hour', 7).set('minute', 45).toDate(),
     end: dayjs().add(1, 'day').set('hour', 13).set('minute', 30).toDate(),
@@ -56,7 +63,7 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <Calendar
-          mode="3days"
+          mode="week"
           height={Dimensions.get('window').height - 50}
           events={[...events, ...additionalEvents]}
           onPressCell={addEvent}

@@ -529,9 +529,9 @@ function _CalendarBody(_a) {
               var start = _a.start
               return start.isBetween(date.startOf('day'), date.endOf('day'), null, '[)')
             })
-            .map(function (event, index) {
+            .map(function (event) {
               return React.createElement(CalendarEvent, {
-                key: event.id ? event.id : index,
+                key: event.id,
                 event: event,
                 onPressEvent: onPressEvent,
                 eventCellStyle: eventCellStyle,
@@ -618,7 +618,12 @@ function _CalendarHeader(_a) {
           ),
           React.createElement(
             reactNative.View,
-            { style: [_isToday && styles$2.todayWrap, _isToday && { backgroundColor: '#004A58' }] },
+            {
+              style: [
+                _isToday && styles$2.todayWrap,
+                _isToday && { backgroundColor: '#004A58', marginTop: 8 },
+              ],
+            },
             React.createElement(
               reactNative.Text,
               { style: [styles$2.dateText, _isToday && { color: '#fff' }] },
@@ -629,12 +634,12 @@ function _CalendarHeader(_a) {
         React.createElement(
           reactNative.View,
           { style: [commonStyles.dateCell, { minHeight: 25, borderWidth: 0 }] },
-          allDayEvents.map(function (event, index) {
+          allDayEvents.map(function (event) {
             if (!event.start.isSame(date, 'day')) {
               return null
             }
             return React.createElement(CalendarEvent, {
-              key: event.id ? event.id : index,
+              key: event.id,
               event: event,
               onPressEvent: onPressEvent,
               eventCellStyle: function (event) {
@@ -657,6 +662,7 @@ function _CalendarHeader(_a) {
 var styles$2 = reactNative.StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
   },
@@ -733,6 +739,8 @@ function _Calendar(_a) {
     function () {
       return events.map(function (e) {
         return __assign(__assign({}, e), {
+          id: e.id,
+          title: e.title,
           start: dayjs__default['default'](e.start),
           end: dayjs__default['default'](e.end),
         })

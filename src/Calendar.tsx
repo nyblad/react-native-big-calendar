@@ -72,7 +72,14 @@ export function _Calendar<T>({
   }, [date])
 
   const dayJsConvertedEvents = React.useMemo(
-    () => events.map((e) => ({ ...e, start: dayjs(e.start), end: dayjs(e.end) })),
+    () =>
+      events.map((e) => ({
+        ...e,
+        id: e.id,
+        title: e.title,
+        start: dayjs(e.start),
+        end: dayjs(e.end),
+      })),
     [events],
   )
 

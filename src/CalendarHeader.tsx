@@ -54,7 +54,10 @@ export function _CalendarHeader({
                 {date.format('ddd')}
               </Text>
               <View
-                style={[_isToday && styles.todayWrap, _isToday && { backgroundColor: '#004A58' }]}
+                style={[
+                  _isToday && styles.todayWrap,
+                  _isToday && { backgroundColor: '#004A58', marginTop: 8 },
+                ]}
               >
                 <Text style={[styles.dateText, _isToday && { color: '#fff' }]}>
                   {date.format('D')}
@@ -62,13 +65,13 @@ export function _CalendarHeader({
               </View>
             </View>
             <View style={[commonStyles.dateCell, { minHeight: 25, borderWidth: 0 }]}>
-              {allDayEvents.map((event, index) => {
+              {allDayEvents.map((event) => {
                 if (!event.start.isSame(date, 'day')) {
                   return null
                 }
                 return (
                   <CalendarEvent
-                    key={event.id ? event.id : index}
+                    key={event.id}
                     event={event}
                     onPressEvent={onPressEvent}
                     eventCellStyle={(event) => ({
@@ -93,6 +96,7 @@ export function _CalendarHeader({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
   },
